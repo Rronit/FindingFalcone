@@ -1,6 +1,6 @@
 import axios from "axios";
 import { falconePlanet, falconeVehicle } from "../types";
-import { falconeActions } from "./falcone.reducers";
+import { falconeActions, initialState } from "./falcone.reducers";
 const baseURL = "https://findfalcone.herokuapp.com";
 
 export const getPlanetDetails = async (dispatch: any) => {
@@ -55,4 +55,13 @@ export const getResults = async (req: any, dispatch: any) => {
   } catch (e) {
     console.error(e);
   }
+};
+
+export const intiateData = () => {
+  return async (dispatch: any) => {
+    dispatch(falconeActions.updateResults(initialState.results));
+    dispatch(falconeActions.updateSelectedValues(initialState.selectedValues));
+    getVehicleDetails(dispatch);
+    getPlanetDetails(dispatch);
+  };
 };

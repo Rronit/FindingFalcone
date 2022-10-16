@@ -58,7 +58,7 @@ export const TimeTaken = () => {
               {totalTime}
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions style={{ display: "flex", justifyContent: "center" }}>
             <Button
               disabled={isDisabled}
               variant="outlined"

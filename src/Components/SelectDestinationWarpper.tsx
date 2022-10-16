@@ -25,7 +25,7 @@ export const SelectDestinationWrapper = () => {
 
   return (
     <>
-      {results.status !== "success" ? (
+      {!results.status ? (
         <>
           <h3>Select planets you want to search in:</h3>
           <Grid

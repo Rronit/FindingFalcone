@@ -5,7 +5,7 @@
   min-width: 5%;
 }
 .card {
-  margin-right: 15px;
+  margin: 15px;
 }
 .keepCenter {
   display: "flex";
