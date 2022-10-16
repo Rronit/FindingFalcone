@@ -38,3 +38,21 @@ export const setVehicle = (data: falconeVehicle[]) => {
     dispatch(falconeActions.setVehicle(data));
   };
 };
+
+export const getResults = async (req: any, dispatch: any) => {
+  const urlToken = `${baseURL}/token`;
+  const urlFind = `${baseURL}/find`;
+  try {
+    axios.defaults.headers.common["Accept"] = "application/json";
+    const token = (await axios.post(urlToken)).data;
+    let reqBody = {
+      ...req,
+      ...token
+    };
+    const result = (await axios.post(urlFind, reqBody)).data;
+    console.log({ result });
+    dispatch(falconeActions.updateResults(result));
+  } catch (e) {
+    console.error(e);
+  }
+};

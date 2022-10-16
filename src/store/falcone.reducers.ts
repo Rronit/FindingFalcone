@@ -7,6 +7,7 @@ interface falconeStore {
   planetDetails: falconePlanet[];
   vehicleDetails: falconeVehicle[];
   selectedValues: selectedValuesType[];
+  results: any;
 }
 
 const initSelectedValues: selectedValuesType[] = [
@@ -35,7 +36,8 @@ const initSelectedValues: selectedValuesType[] = [
 export const initialState: falconeStore = {
   planetDetails: [],
   vehicleDetails: [],
-  selectedValues: initSelectedValues
+  selectedValues: initSelectedValues,
+  results: {}
 };
 
 export const falconeSlice = createSlice({
@@ -50,6 +52,9 @@ export const falconeSlice = createSlice({
     },
     updateSelectedValues(state, action) {
       state.selectedValues = action.payload;
+    },
+    updateResults(state, action) {
+      state.results = action.payload;
     }
   }
 });

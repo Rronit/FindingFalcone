@@ -7,7 +7,9 @@ import {
   Typography
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { getResults } from "../store/falcone.actionCreators";
 import { selectedValuesType } from "../types";
 import "./falcone.style.css";
 
@@ -15,9 +17,17 @@ export const TimeTaken = () => {
   const { selectedValues } = useSelector((state: any) => state);
   const [totalTime, setTotalTime] = useState<number>(0);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const dispatch = useDispatch();
 
   const findFalcone = () => {
-    console.log("");
+    const planet_names: string[] = [];
+    const vehicle_names: string[] = [];
+    selectedValues.forEach((it: selectedValuesType) => {
+      planet_names.push(it.planet);
+      vehicle_names.push(it.vehicle);
+    });
+
+    getResults({ planet_names, vehicle_names }, dispatch);
   };
   useEffect(() => {
     let sumTime = 0;
@@ -30,8 +40,6 @@ export const TimeTaken = () => {
     });
     setTotalTime(sumTime);
     setIsDisabled(totalSelected < 4);
-
-    console.log(sumTime, totalSelected);
   }, [selectedValues]);
 
   return (
