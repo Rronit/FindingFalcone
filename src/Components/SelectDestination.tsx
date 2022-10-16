@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { updateSelectedValues } from "../store/falcone.actionCreators";
 import { falconePlanet } from "../types";
 import { SelectVehicle } from "./SelectVehicle";
+import "./falcone.style.css";
 
 export const SelectDestination = () => {
   const dispatch = useDispatch();
@@ -29,7 +30,7 @@ export const SelectDestination = () => {
     destinationOptions.filter(it => it.name === planet)[0];
 
   return (
-    <div>
+    <div className="destination">
       <Box sx={{ minWidth: 120, padding: 4 }}>
         <FormControl>
           <InputLabel id="select-planet">Destination</InputLabel>
