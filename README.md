@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# GeekTrust Finding Falcone coding challenge. This project is done using React framework
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
