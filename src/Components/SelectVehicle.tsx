@@ -7,15 +7,16 @@ import {
   RadioGroup
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import { falconePlanet, falconeVehicle } from "../types";
+import { falconePlanet, falconeVehicle, selectedValuesType } from "../types";
 import { updateSelectedValues } from "../store/falcone.actionCreators";
 import { useDispatch } from "react-redux";
 
 export const SelectVehicle = (props: {
+  selectedVal: selectedValuesType;
   selectedPlanet: falconePlanet;
   index: number;
 }) => {
-  const { selectedPlanet, index } = props;
+  const { selectedPlanet, index, selectedVal } = props;
   const dispatch = useDispatch();
 
   const { vehicleDetails, selectedValues } = useSelector((state: any) => state);
@@ -29,7 +30,7 @@ export const SelectVehicle = (props: {
     let vehiData = vehicleOptions.filter(it => it.name === e.target.value)[0];
     let timeTaken = selectedPlanet.distance / vehiData.speed;
     tempSelected[index] = {
-      ...tempSelected[index],
+      ...selectedVal,
       ...{ vehicle: e.target.value, timeTaken }
     };
     setVehicle(e.target.value);

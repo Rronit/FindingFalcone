@@ -10,9 +10,8 @@ export interface falconeVehicle {
   speed: number;
 }
 
-export interface selectedValues {
+export interface selectedValuesType {
   planet: string;
   vehicle: string;
   timeTaken: number;
-  index: number;
 }

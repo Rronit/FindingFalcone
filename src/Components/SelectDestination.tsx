@@ -3,12 +3,16 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { updateSelectedValues } from "../store/falcone.actionCreators";
-import { falconePlanet } from "../types";
+import { falconePlanet, selectedValuesType } from "../types";
 import { SelectVehicle } from "./SelectVehicle";
 import "./falcone.style.css";
 
-export const SelectDestination = () => {
+export const SelectDestination = (props: {
+  selectedVal: selectedValuesType;
+  idx: number;
+}) => {
   const dispatch = useDispatch();
+  const { idx, selectedVal } = props;
   const [destinationOptions, setDesinationOptions] = useState<falconePlanet[]>(
     []
   );
@@ -19,11 +23,10 @@ export const SelectDestination = () => {
     setDesinationOptions(planetDetails);
   }, [planetDetails]);
 
-  useEffect(() => {}, [selectedValues]);
   const handleDestinationChange = (e: { target: { value: any } }) => {
     setPlanet(e.target.value);
     let tempSelected = [...selectedValues];
-    tempSelected[0] = { planet: e.target.value };
+    tempSelected[idx] = { ...selectedVal, ...{ planet: e.target.value } };
     updateSelectedValues(tempSelected, dispatch);
   };
   const selectedPlanet = () =>
@@ -50,7 +53,11 @@ export const SelectDestination = () => {
         </FormControl>
       </Box>
       {planet !== "Select Planet" && (
-        <SelectVehicle selectedPlanet={selectedPlanet()} index={0} />
+        <SelectVehicle
+          selectedPlanet={selectedPlanet()}
+          index={idx}
+          selectedVal={selectedVal}
+        />
       )}
     </div>
   );

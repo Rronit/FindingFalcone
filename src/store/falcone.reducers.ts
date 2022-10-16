@@ -1,4 +1,4 @@
-import { falconePlanet, falconeVehicle, selectedValues } from "../types";
+import { falconePlanet, falconeVehicle, selectedValuesType } from "../types";
 // import { SET_PLANET, SET_VEHICLE } from "./falcone.actionType";
 // import produce from "immer";
 import { createSlice } from "@reduxjs/toolkit";
@@ -6,13 +6,36 @@ import { createSlice } from "@reduxjs/toolkit";
 interface falconeStore {
   planetDetails: falconePlanet[];
   vehicleDetails: falconeVehicle[];
-  selectedValues: selectedValues[];
+  selectedValues: selectedValuesType[];
 }
+
+const initSelectedValues: selectedValuesType[] = [
+  {
+    planet: "",
+    vehicle: "",
+    timeTaken: 0
+  },
+  {
+    planet: "",
+    vehicle: "",
+    timeTaken: 0
+  },
+  {
+    planet: "",
+    vehicle: "",
+    timeTaken: 0
+  },
+  {
+    planet: "",
+    vehicle: "",
+    timeTaken: 0
+  }
+];
 
 export const initialState: falconeStore = {
   planetDetails: [],
   vehicleDetails: [],
-  selectedValues: []
+  selectedValues: initSelectedValues
 };
 
 export const falconeSlice = createSlice({
@@ -32,14 +55,3 @@ export const falconeSlice = createSlice({
 });
 
 export const falconeActions = falconeSlice.actions;
-
-// export const falconeReducer = (state = initialState, action: any) => {
-//   switch (action.type) {
-//     case SET_PLANET: {
-//       const nextState = produce(state, draftState => {
-//         draftState.planetDetails = action.payload;
-//       });
-//       return nextState;
-//     }
-//   }
-// };

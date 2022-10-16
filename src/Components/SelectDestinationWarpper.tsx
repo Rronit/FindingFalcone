@@ -9,13 +9,13 @@ import {
 } from "../store/falcone.actionCreators";
 import { SelectDestination } from "./SelectDestination";
 import { TimeTaken } from "./TimeTaken";
+import { selectedValuesType } from "../types";
 
 export const SelectDestinationWrapper = () => {
   const dispatch = useDispatch();
-  const planetDetails = useSelector((state: any) => state.planetDetails);
-  useEffect(() => {
-    console.log(planetDetails);
-  }, [planetDetails]);
+  const { planetDetails, selectedValues } = useSelector((state: any) => state);
+  // useEffect(() => {}, [selectedValues]);
+  console.log(selectedValues);
 
   useEffect(() => {
     getPlanetDetails(dispatch);
@@ -25,13 +25,16 @@ export const SelectDestinationWrapper = () => {
   return (
     <>
       <h3>Select planets you want to search in:</h3>
-      <Grid container spacing={3} className="keepCenter">
-        <Paper className="card">
-          <SelectDestination />
-        </Paper>
-        <Paper className="card">
-          <SelectDestination />
-        </Paper>
+      <Grid
+        container
+        spacing={3}
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        {selectedValues.map((item: selectedValuesType, idx: number) => (
+          <Paper className="card">
+            <SelectDestination idx={idx} selectedVal={item} />
+          </Paper>
+        ))}
       </Grid>
       <TimeTaken />
     </>
