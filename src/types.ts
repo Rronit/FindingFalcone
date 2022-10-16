@@ -7,5 +7,12 @@ export interface falconeVehicle {
   name: string;
   total_no: number;
   max_distance: number;
-  spped: number;
+  speed: number;
+}
+
+export interface selectedValues {
+  planet: string;
+  vehicle: string;
+  timeTaken: number;
+  index: number;
 }

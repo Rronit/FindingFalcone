@@ -1,3 +1,4 @@
+import { Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -6,6 +7,7 @@ import {
   getPlanetDetails,
   getVehicleDetails
 } from "../store/falcone.actionCreators";
+import { SelectDestination } from "./SelectDestination";
 
 export const SelectDestinationWrapper = () => {
   const dispatch = useDispatch();
@@ -19,5 +21,13 @@ export const SelectDestinationWrapper = () => {
     getVehicleDetails(dispatch);
   }, [dispatch]);
 
-  return <>hello</>;
+  return (
+    <>
+      <h3>Select planets you want to search in:</h3>
+      <Grid container spacing={3}>
+        <br />
+        <SelectDestination />
+      </Grid>
+    </>
+  );
 };

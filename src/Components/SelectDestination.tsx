@@ -1,1 +1,56 @@
-export {};
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { updateSelectedValues } from "../store/falcone.actionCreators";
+import { falconePlanet } from "../types";
+import { SelectVehicle } from "./SelectVehicle";
+
+export const SelectDestination = () => {
+  const dispatch = useDispatch();
+  const [destinationOptions, setDesinationOptions] = useState<falconePlanet[]>(
+    []
+  );
+  const [planet, setPlanet] = React.useState("Select Planet");
+  const { planetDetails, selectedValues } = useSelector((state: any) => state);
+
+  useEffect(() => {
+    setDesinationOptions(planetDetails);
+  }, [planetDetails]);
+
+  useEffect(() => {}, [selectedValues]);
+  const handleDestinationChange = (e: { target: { value: any } }) => {
+    setPlanet(e.target.value);
+    let tempSelected = [...selectedValues];
+    tempSelected[0] = { planet: e.target.value };
+    updateSelectedValues(tempSelected, dispatch);
+  };
+  const selectedPlanet = () =>
+    destinationOptions.filter(it => it.name === planet)[0];
+
+  return (
+    <div>
+      <Box sx={{ minWidth: 120, padding: 4 }}>
+        <FormControl>
+          <InputLabel id="select-planet">Destination</InputLabel>
+          <Select
+            labelId="select-planet"
+            id="select-desti"
+            value={planet}
+            label="Destination"
+            onChange={handleDestinationChange}
+            style={{ width: 150 }}
+          >
+            <MenuItem value={"Select Planet"}>Select Planet</MenuItem>
+            {destinationOptions.map(planet => (
+              <MenuItem value={planet.name}>{planet.name}</MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
+      {planet !== "Select Planet" && (
+        <SelectVehicle selectedPlanet={selectedPlanet()} index={0} />
+      )}
+    </div>
+  );
+};
