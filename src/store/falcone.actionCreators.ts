@@ -50,7 +50,6 @@ export const getResults = async (req: any, dispatch: any) => {
       ...token
     };
     const result = (await axios.post(urlFind, reqBody)).data;
-    console.log({ result });
     dispatch(falconeActions.updateResults(result));
   } catch (e) {
     console.error(e);

@@ -16,7 +16,6 @@ export const Result = () => {
     });
     setTotalTime(sumTime);
   }, [selectedValues]);
-  console.log(results);
 
   const handletryAgain = () => {
     dispatch(intiateData());

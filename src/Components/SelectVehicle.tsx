@@ -39,27 +39,17 @@ export const SelectVehicle = (props: {
       ...selectedVal,
       ...{ vehicle: e.target.value, timeTaken }
     };
-    // setVehicle(e.target.value);
     let ndex = vehicleOptions.findIndex(x => x.name === e.target.value);
-    // let ff = tempVehicle.forEach(item => {
-    //   if (item.name === e.target.value) {
-    //     item.total_no = item.total_no - 1;
-    //   }
-    //   return item;
-    // });
     let x = tempVehicle[ndex].total_no - 1;
     tempVehicle[ndex] = {
       ...vehiData,
       ...{ total_no: x }
     };
-    console.log(ndex, tempVehicle);
 
     dispatch(setVehicle(tempVehicle));
 
     updateSelectedValues(tempSelected, dispatch);
   };
-  // const selectedVehicle = () =>
-  //   vehicleOptions.filter(it => it.name === vehicle)[0];
 
   return (
     <FormControl>
@@ -69,12 +59,12 @@ export const SelectVehicle = (props: {
         name="radio-buttons-group"
         onChange={handleVehicleChange}
       >
-        {/* <MenuItem value={"Select Vehicle"}>Select Vehicle</MenuItem> */}
         {vehicleOptions.map(vehicle => (
           <FormControlLabel
             value={vehicle.name}
             control={<Radio />}
             label={`${vehicle.name} (${vehicle.total_no})`}
+            key={vehicle.name}
             disabled={
               vehicle.max_distance < selectedPlanet.distance ||
               vehicle.total_no < 1
