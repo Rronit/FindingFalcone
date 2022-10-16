@@ -20,8 +20,22 @@ export const SelectDestination = (props: {
   const { planetDetails, selectedValues } = useSelector((state: any) => state);
 
   useEffect(() => {
-    setDesinationOptions(planetDetails);
+    // let filteredData = planetDetails.filter(
+    //   (item: falconePlanet) => selectedValues[idx].planet !== item.name
+    // );
+    const filteredData = planetDetails.filter((pl: falconePlanet) =>
+      selectedValues.some((item: selectedValuesType) => item.planet !== pl.name)
+    );
+    console.log(filteredData);
+    setDesinationOptions(filteredData);
   }, [planetDetails]);
+
+  const checkAvailability = (sel: any) => {
+    return (
+      selectedValues.filter((it: selectedValuesType) => it.planet === sel)
+        .length > 0
+    );
+  };
 
   const handleDestinationChange = (e: { target: { value: any } }) => {
     setPlanet(e.target.value);
@@ -47,7 +61,12 @@ export const SelectDestination = (props: {
           >
             <MenuItem value={"Select Planet"}>Select Planet</MenuItem>
             {destinationOptions.map(planet => (
-              <MenuItem value={planet.name}>{planet.name}</MenuItem>
+              <MenuItem
+                value={planet.name}
+                disabled={checkAvailability(planet.name)}
+              >
+                {planet.name}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>

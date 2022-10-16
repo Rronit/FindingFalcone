@@ -27,13 +27,13 @@ export const updateSelectedValues = (data: any, dispatch: any) => {
   dispatch(falconeActions.updateSelectedValues(data));
 };
 
-export const setPlanet = (data: falconePlanet) => {
+export const setPlanet = (data: falconePlanet[]) => {
   return async (dispatch: any) => {
     dispatch(falconeActions.setPlanet(data));
   };
 };
 
-export const setVehicle = (data: falconeVehicle) => {
+export const setVehicle = (data: falconeVehicle[]) => {
   return async (dispatch: any) => {
     dispatch(falconeActions.setVehicle(data));
   };
