@@ -10,12 +10,13 @@ import {
 import { SelectDestination } from "./SelectDestination";
 import { TimeTaken } from "./TimeTaken";
 import { selectedValuesType } from "../types";
+import { Result } from "./Result";
 
 export const SelectDestinationWrapper = () => {
   const dispatch = useDispatch();
-  const { planetDetails, selectedValues } = useSelector((state: any) => state);
+  const { results, selectedValues } = useSelector((state: any) => state);
   // useEffect(() => {}, [selectedValues]);
-  console.log(selectedValues);
+  console.log(results);
 
   useEffect(() => {
     getPlanetDetails(dispatch);
@@ -24,19 +25,25 @@ export const SelectDestinationWrapper = () => {
 
   return (
     <>
-      <h3>Select planets you want to search in:</h3>
-      <Grid
-        container
-        spacing={3}
-        style={{ display: "flex", justifyContent: "center" }}
-      >
-        {selectedValues.map((item: selectedValuesType, idx: number) => (
-          <Paper className="card">
-            <SelectDestination idx={idx} selectedVal={item} />
-          </Paper>
-        ))}
-      </Grid>
-      <TimeTaken />
+      {results.status !== "success" ? (
+        <>
+          <h3>Select planets you want to search in:</h3>
+          <Grid
+            container
+            spacing={3}
+            style={{ display: "flex", justifyContent: "center" }}
+          >
+            {selectedValues.map((item: selectedValuesType, idx: number) => (
+              <Paper className="card">
+                <SelectDestination idx={idx} selectedVal={item} />
+              </Paper>
+            ))}
+          </Grid>
+          <TimeTaken />
+        </>
+      ) : (
+        <Result />
+      )}
     </>
   );
 };
