@@ -1,11 +1,12 @@
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { updateSelectedValues } from "../store/falcone.actionCreators";
-import { falconePlanet, selectedValuesType } from "../types";
+import { selectedValuesType } from "../types";
 import { SelectVehicle } from "./SelectVehicle";
 import "./falcone.style.css";
+import { useDestinationOption } from "./CustomHooks/useDestinationOption";
 
 export const SelectDestination = (props: {
   selectedVal: selectedValuesType;
@@ -13,18 +14,10 @@ export const SelectDestination = (props: {
 }) => {
   const dispatch = useDispatch();
   const { idx, selectedVal } = props;
-  const [destinationOptions, setDesinationOptions] = useState<falconePlanet[]>(
-    []
-  );
-  const [planet, setPlanet] = React.useState("Select Planet");
-  const { planetDetails, selectedValues } = useSelector((state: any) => state);
 
-  useEffect(() => {
-    const filteredData = planetDetails.filter((pl: falconePlanet) =>
-      selectedValues.some((item: selectedValuesType) => item.planet !== pl.name)
-    );
-    setDesinationOptions(filteredData);
-  }, [planetDetails]);
+  const [planet, setPlanet] = React.useState("Select Planet");
+  const { selectedValues } = useSelector((state: any) => state);
+  const { destinationOptions } = useDestinationOption();
 
   const checkAvailability = (sel: any) => {
     return (

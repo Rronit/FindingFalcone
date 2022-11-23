@@ -1,21 +1,13 @@
 import { Button, CardActions, CardContent, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { intiateData } from "../store/falcone.actionCreators";
 import { useAppDispatch } from "../store/storeConfig";
-import { selectedValuesType } from "../types";
+import { useTotalTime } from "./CustomHooks/useTotalTime";
 
 export const Result = () => {
   const { selectedValues, results } = useSelector((state: any) => state);
-  const [totalTime, setTotalTime] = useState<number>(0);
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    let sumTime = 0;
-    selectedValues.forEach((it: selectedValuesType) => {
-      sumTime = sumTime + it.timeTaken;
-    });
-    setTotalTime(sumTime);
-  }, [selectedValues]);
+  const { totalTime } = useTotalTime(selectedValues);
 
   const handletryAgain = () => {
     dispatch(intiateData());
